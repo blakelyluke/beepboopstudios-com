@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#080b12">
 <title>Privacy Policy — BeepBoop Studios</title>
 <meta name="description" content="Privacy policy for BeepBoop Studios products including Level: Adult.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <style>
   :root {
@@ -36,11 +36,9 @@
     color: var(--text); text-decoration: none;
   }
   .brand-mark {
-    width: 28px; height: 28px; border-radius: 8px;
-    background: linear-gradient(135deg, #a78bfa 0%, #3b82f6 50%, #2dd4bf 100%);
-    display: inline-flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 900; font-size: 12px;
-    box-shadow: 0 4px 14px rgba(91,62,245,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+    width: 32px; height: 32px;
+    display: block;
+    filter: drop-shadow(0 4px 14px rgba(91,62,245,0.45));
   }
 
   article { padding: 60px 0 100px; }
@@ -72,8 +70,30 @@
 <div class="wrap">
 
 <nav>
-  <a class="brand" href="/">
-    <span class="brand-mark">BB</span>
+  <a class="brand" href="index.html">
+    <svg class="brand-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="bb-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+          <stop offset="0"   stop-color="#a78bfa"/>
+          <stop offset="0.5" stop-color="#3b82f6"/>
+          <stop offset="1"   stop-color="#2dd4bf"/>
+        </linearGradient>
+        <radialGradient id="bb-eye" cx="0.32" cy="0.28" r="0.85">
+          <stop offset="0"   stop-color="#ffffff"/>
+          <stop offset="0.6" stop-color="#ffffff"/>
+          <stop offset="1"   stop-color="#e5e7ff"/>
+        </radialGradient>
+      </defs>
+      <line x1="32" y1="2" x2="32" y2="9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.92"/>
+      <circle cx="32" cy="2.5" r="2.6" fill="#ffffff"/>
+      <rect x="6" y="10" width="52" height="50" rx="13" fill="url(#bb-bg)"/>
+      <rect x="9" y="13" width="46" height="44" rx="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+      <circle cx="22" cy="32" r="6.5" fill="url(#bb-eye)"/>
+      <circle cx="42" cy="32" r="6.5" fill="url(#bb-eye)"/>
+      <circle cx="20" cy="29.5" r="1.6" fill="#ffffff"/>
+      <circle cx="40" cy="29.5" r="1.6" fill="#ffffff"/>
+      <path d="M 22 47 Q 32 52 42 47" stroke="#ffffff" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.72"/>
+    </svg>
     BeepBoop Studios
   </a>
 </nav>
@@ -164,7 +184,7 @@ BeepBoop Studios LLC · 742 Graham St #321 · Tuscola, TX 79562 · USA
 <footer>
   <div>© 2026 BeepBoop Studios LLC · Texas, USA</div>
   <div>
-    <a href="/">Home</a> · <a href="/terms.html">Terms</a>
+    <a href="index.html">Home</a> · <a href="terms.html">Terms</a>
   </div>
 </footer>
 
