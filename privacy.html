@@ -100,7 +100,7 @@
 
 <article>
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated: 2026-05-05</p>
+<p class="updated">Last updated: 2026-05-12</p>
 
 <p>This Privacy Policy describes how BeepBoop Studios LLC ("BeepBoop", "we", "us")
 collects, uses, and protects information about you when you use our products
@@ -121,6 +121,13 @@ or Google Play depending on platform. We never see or store your full payment
 card number.</li>
 <li><strong>Crash + diagnostic data</strong> — anonymized crash reports via Sentry
 to help us fix bugs.</li>
+<li><strong>Product analytics</strong> — event-level data on which screens you
+visit and which features you use (e.g. "lesson started", "paywall shown",
+"friend added"), session duration, and a sampled subset of session replays
+(approximately 5% of sessions) so we can diagnose UI bugs we can't reproduce.
+Processed by PostHog. We don't capture form inputs, passwords, or message
+content; replay masks personal data. You can opt out by enabling Do Not Track
+in your browser, which our analytics tool respects.</li>
 </ul>
 
 <h2>How we use it</h2>
@@ -128,6 +135,8 @@ to help us fix bugs.</li>
 <li>Operate the app — saving your progress, syncing across devices.</li>
 <li>Send transactional notifications (e.g. quest reminders, when you opt in).</li>
 <li>Identify and fix bugs.</li>
+<li>Understand how the product is used in aggregate so we can improve it
+(which lessons get abandoned, which features go unused, where users get stuck).</li>
 <li>Process subscription payments via the platforms above.</li>
 </ul>
 
@@ -143,7 +152,14 @@ to help us fix bugs.</li>
 <li><strong>Supabase</strong> — backend storage and authentication.</li>
 <li><strong>Stripe</strong> — web subscription processing.</li>
 <li><strong>Apple App Store / Google Play</strong> — mobile subscription processing.</li>
+<li><strong>RevenueCat</strong> — cross-platform subscription state management.
+Stores your subscription status (active / trial / expired) and the receipt
+identifier from the store, so the app knows whether to unlock premium
+features. Does not store payment card data.</li>
 <li><strong>Sentry</strong> — anonymous crash reporting.</li>
+<li><strong>PostHog</strong> — product analytics, including event tracking
+and sampled session replay (~5%). Hosted in the US. See "Product analytics"
+under "What we collect" for what gets sent and how to opt out.</li>
 <li><strong>Vercel</strong> — hosting.</li>
 </ul>
 <p>Each of these handles your data under their own privacy policies, in line with
