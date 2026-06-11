@@ -105,7 +105,7 @@
   }
   .product-card {
     display: grid;
-    grid-template-columns: 88px 1fr auto;
+    grid-template-columns: 88px 1fr;
     gap: 22px;
     align-items: center;
     padding: 24px;
@@ -115,15 +115,6 @@
       linear-gradient(135deg, rgba(15,20,32,0.95), rgba(8,11,18,0.9));
     border: 1px solid var(--border);
     box-shadow: 0 18px 40px -16px rgba(91,62,245,0.35), 0 6px 16px rgba(0,0,0,0.4);
-    text-decoration: none;
-    color: inherit;
-    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-  }
-  .product-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(167,139,250,0.4);
-    box-shadow: 0 22px 50px -16px rgba(91,62,245,0.5), 0 6px 16px rgba(0,0,0,0.45);
-    text-decoration: none;
   }
   .product-icon {
     width: 88px; height: 88px;
@@ -140,47 +131,40 @@
   .product-tagline {
     font-size: 14px; color: var(--text-dim); margin: 0; line-height: 1.45;
   }
-  .product-cta {
-    font-size: 13px; font-weight: 800;
-    color: var(--accent);
-    display: inline-flex; align-items: center; gap: 4px;
-    white-space: nowrap;
-  }
 
   /* ── Download badges ──
-     PLACEHOLDER state: apps not yet on the stores. These mimic the
-     official badge layout (dark pill, store glyph + "Coming Soon")
-     but deliberately don't use the official Apple/Google badge SVGs,
-     because both companies' brand guidelines prohibit using their
-     official badges to link anywhere other than the live app listing.
-     SWAP-IN INSTRUCTIONS at the matching HTML block below. */
+     Both stores live as of 2026-06-09. Badges link to the live App Store
+     and Play Store listings. Sized to be the primary call to action on
+     this page, with a smaller text fallback below for desktop visitors. */
   .download-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 18px;
+    gap: 14px;
+    margin-top: 22px;
   }
   .download-badge {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 18px;
-    border-radius: 12px;
+    gap: 14px;
+    padding: 16px 26px;
+    border-radius: 14px;
     background: #0a0a0a;
-    border: 1px solid rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.22);
     color: #ffffff;
     text-decoration: none;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, sans-serif;
-    transition: border-color 180ms ease, transform 180ms ease;
-    min-width: 180px;
+    transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    min-width: 220px;
+    box-shadow: 0 8px 20px -8px rgba(0,0,0,0.6);
   }
   .download-badge:hover {
     text-decoration: none;
-    border-color: rgba(255,255,255,0.35);
+    border-color: rgba(255,255,255,0.42);
     transform: translateY(-1px);
+    box-shadow: 0 12px 28px -8px rgba(0,0,0,0.7);
   }
   .download-badge .badge-icon {
-    width: 28px; height: 28px;
+    width: 36px; height: 36px;
     flex-shrink: 0;
   }
   .download-badge .badge-icon svg {
@@ -193,22 +177,30 @@
     line-height: 1.1;
   }
   .download-badge .badge-eyebrow {
-    font-size: 10px;
-    color: rgba(255,255,255,0.65);
-    letter-spacing: 0.4px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.5px;
   }
   .download-badge .badge-name {
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.1px;
   }
-  .download-badge[aria-disabled="true"] {
-    opacity: 0.72;
-    cursor: not-allowed;
+  .web-fallback {
+    margin: 14px 0 0;
+    font-size: 13px;
+    color: var(--text-faint);
   }
-  .download-badge[aria-disabled="true"]:hover {
-    transform: none;
-    border-color: rgba(255,255,255,0.18);
+  .web-fallback a {
+    color: var(--text-dim);
+    text-decoration: underline;
+    text-decoration-color: rgba(255,255,255,0.22);
+    text-underline-offset: 3px;
+    transition: color 160ms ease, text-decoration-color 160ms ease;
+  }
+  .web-fallback a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
   }
 
   /* ── About ── */
@@ -312,48 +304,25 @@
 
   <section>
     <p class="section-label">Now Playing</p>
-    <a class="product-card" href="https://leveladult.app">
+    <div class="product-card">
       <div class="product-icon" aria-hidden="true">
         <img src="leveladult-icon.png" alt="Level: Adult">
       </div>
       <div class="product-meta">
         <p class="product-title">Level: Adult</p>
         <p class="product-tagline">
-          A gamified life-skills app. Quests, courses, NPCs, and a full
+          A gamified life skills app. Quests, courses, NPCs, and a full
           Functional U metaphor. iOS, Android, web.
         </p>
       </div>
-      <span class="product-cta">Open ↗</span>
-    </a>
+    </div>
 
-    <!--
-      DOWNLOAD BADGES — currently placeholders.
+    <!-- Download badges — both stores live as of 2026-06-09. Custom
+         inline glyphs by choice (Apple + Google brand guidelines both
+         restrict their official artwork to specific dimensions and
+         padding; the custom badges keep visual parity between the two
+         while linking to the real listings). -->
 
-      ╔══════════════════════════════════════════════════════════════════╗
-      ║  SWAP-IN INSTRUCTIONS WHEN APPS GO LIVE                          ║
-      ║                                                                  ║
-      ║  1. iOS App Store:                                               ║
-      ║     - replace `href="#"` with: https://apps.apple.com/app/idXXXXXXXX
-      ║       (Apple assigns the numeric App ID on first submission;     ║
-      ║        copy it from App Store Connect → App Information)         ║
-      ║     - remove the `aria-disabled` attribute                       ║
-      ║     - swap the inline SVG + "Coming Soon" copy for Apple's       ║
-      ║       official "Download on the App Store" SVG badge from       ║
-      ║       https://developer.apple.com/app-store/marketing/guidelines/
-      ║                                                                  ║
-      ║  2. Google Play:                                                 ║
-      ║     - replace `href="#"` with:                                   ║
-      ║       https://play.google.com/store/apps/details?id=app.leveladult
-      ║     - remove the `aria-disabled` attribute                       ║
-      ║     - swap the inline SVG + "Coming Soon" copy for Google's      ║
-      ║       official "Get it on Google Play" PNG/SVG from              ║
-      ║       https://play.google.com/intl/en_us/badges/                 ║
-      ║                                                                  ║
-      ║  NOTE: Apple + Google both restrict their official badges to     ║
-      ║  linking only to live store listings. That's why we use custom   ║
-      ║  placeholders here pre-launch.                                   ║
-      ╚══════════════════════════════════════════════════════════════════╝
-    -->
     <div class="download-row" aria-label="Download Level: Adult">
       <a class="download-badge" href="https://apps.apple.com/us/app/level-adult/id6768078388" target="_blank" rel="noopener" aria-label="Download Level: Adult on the App Store">
         <span class="badge-icon" aria-hidden="true">
@@ -378,6 +347,9 @@
         </span>
       </a>
     </div>
+    <p class="web-fallback">
+      Or <a href="https://leveladult.app">try it in your browser →</a>
+    </p>
   </section>
 
   <section class="about" id="about">
