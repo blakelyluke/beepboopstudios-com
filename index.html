@@ -203,6 +203,33 @@
     text-decoration-color: var(--accent);
   }
 
+  /* ── Coming soon ──
+     Level: Historian's card borrows its own brass accent, so it reads as a
+     different product in the same family. */
+  .coming { margin-top: 56px; }
+  .product-card.historian {
+    background:
+      radial-gradient(80% 100% at 0% 0%, rgba(201,164,92,0.16), transparent 60%),
+      linear-gradient(135deg, rgba(15,20,32,0.95), rgba(8,11,18,0.9));
+    border-color: rgba(201,164,92,0.30);
+    box-shadow: 0 18px 40px -16px rgba(201,164,92,0.30), 0 6px 16px rgba(0,0,0,0.4);
+  }
+  .product-card.historian .product-icon {
+    box-shadow: 0 10px 24px -6px rgba(201,164,92,0.45), inset 0 2px 0 rgba(255,255,255,0.25);
+  }
+  .soon-pill {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 4px 10px 3px;
+    border-radius: 999px;
+    vertical-align: 4px;
+    font-size: 10px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+    color: #e8cc8e;
+    background: rgba(201,164,92,0.12);
+    border: 1px solid rgba(201,164,92,0.38);
+    white-space: nowrap;
+  }
+
   /* ── About ── */
   .about {
     padding: 60px 0;
@@ -352,6 +379,23 @@
     </p>
   </section>
 
+  <section class="coming">
+    <p class="section-label">Coming Soon</p>
+    <div class="product-card historian">
+      <div class="product-icon" aria-hidden="true">
+        <img src="levelhistorian-icon.png" alt="Level: Historian">
+      </div>
+      <div class="product-meta">
+        <p class="product-title">Level: Historian <span class="soon-pill">Coming soon</span></p>
+        <p class="product-tagline">
+          History you can actually play. Board the time machine, pick your era,
+          and learn from twelve professors across 40,000 years, from a fussy
+          mummy to a saga-telling shieldmaiden. Coming to iOS and Android.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="about" id="about">
     <p class="section-label">About</p>
     <p>
@@ -362,7 +406,8 @@
     </p>
     <p>
       Founded in 2026 in Texas. <strong>Level: Adult</strong> is what we're
-      shipping right now, with more in the workshop.
+      shipping right now. <strong>Level: Historian</strong> is up next, with
+      more in the workshop.
     </p>
   </section>
 
