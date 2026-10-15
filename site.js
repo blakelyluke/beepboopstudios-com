@@ -220,7 +220,6 @@
     const eyes = $('.bot-eyes', svg)
     const head = $('.bot-head', svg)
     const squash = $('.bot-squash', svg)
-    const armR = $('.arm-r', svg)
     const heroBot = $('.hero-bot')
     const bubble = $('.bubble')
     const bubbleText = $('.bubble-text')
@@ -266,7 +265,7 @@
     const apply = () => {
       face.setAttribute('transform', 'translate(' + (cur.x * 13).toFixed(2) + ' ' + (cur.y * 10).toFixed(2) + ')')
       eyes.setAttribute('transform', 'translate(' + (cur.x * 5).toFixed(2) + ' ' + (cur.y * 4).toFixed(2) + ')')
-      head.setAttribute('transform', 'rotate(' + (cur.x * 5).toFixed(2) + ' 128 246)') // tilts on the neck
+      head.setAttribute('transform', 'rotate(' + (cur.x * 5).toFixed(2) + ' 128 140)')
     }
     const step = () => {
       raf = 0
@@ -284,7 +283,7 @@
       if (reduce || !heroOn) return
       const r = svg.getBoundingClientRect()
       const cx = r.left + r.width * 0.5
-      const cy = r.top + r.height * 0.4
+      const cy = r.top + r.height * 0.52
       lookAt((e.clientX - cx) / Math.max(240, window.innerWidth * 0.45), (e.clientY - cy) / Math.max(240, window.innerHeight * 0.5))
       lastPtr = now()
     }
@@ -327,15 +326,6 @@
     }
     setTimeout(chatter, 5600)
 
-    // Waves hello on arrival: the whole arm swings from the shoulder.
-    const wave = () => {
-      if (reduce || !armR) return
-      armR.classList.remove('wave')
-      reflow(armR)
-      armR.classList.add('wave')
-    }
-    if (armR) armR.addEventListener('animationend', (e) => { if (e.animationName === 'armwave') armR.classList.remove('wave') })
-    setTimeout(wave, 900)
 
     // Hover makes it blush.
     bot.addEventListener('pointerenter', (e) => {
@@ -359,15 +349,15 @@
       reflow(squash)
       squash.classList.add('boing')
     }
-    squash.addEventListener('animationend', () => squash.classList.remove('boing'))
+    squash.addEventListener('animationend', (e) => { if (e.animationName === 'boing') squash.classList.remove('boing'); if (e.animationName === 'hello') squash.classList.remove('hello') })
 
     // Little stars pop out of the antenna.
     const sparks = (n) => {
       if (reduce || !heroBot) return
       const r = svg.getBoundingClientRect()
       const hr = heroBot.getBoundingClientRect()
-      const ax = r.left - hr.left + ((128 + 70) / 400) * r.width
-      const ay = r.top - hr.top + ((10 + 50) / 480) * r.height
+      const ax = r.left - hr.left + ((128 + 30) / 316) * r.width
+      const ay = r.top - hr.top + ((10 + 60) / 380) * r.height
       for (let i = 0; i < n; i++) {
         const s = document.createElement('span')
         s.className = 'spark'
@@ -383,6 +373,14 @@
         setTimeout(() => s.remove(), 820)
       }
     }
+
+    // Says hello on arrival: a little hop, a happy tilt and a puff of antenna sparks.
+    setTimeout(() => {
+      if (reduce) return
+      squash.classList.add('hello')
+      setMood('happy', 1300)
+      setTimeout(() => sparks(6), 180)
+    }, 750)
 
     // Easter egg 1: five quick clicks = party mode.
     let partyT = 0
@@ -490,17 +488,72 @@
     })
   }
 
+  /* ───────────────────────── Pointer depth (Level: Adult scene, Historian dial) ── */
+  // Eases --px / --py (-1..1) on each scene: the phone and dial tilt toward the pointer and the
+  // cutouts and lamps drift at different depths. Phones get a slow idle drift (or device tilt
+  // where that needs no permission prompt). Off under reduced motion.
+  const depthScenes = $$('.la-scene, .cart-lh').map((el) => ({ el, on: false, tx: 0, ty: 0, x: 0, y: 0 }))
+  if (depthScenes.length) {
+    let draf = 0
+    let tilt = null
+    const dstep = (t) => {
+      draf = 0
+      let moving = false
+      depthScenes.forEach((d) => {
+        if (!d.on) return
+        if (coarse && !tilt) { d.tx = Math.sin(t / 2600) * 0.35; d.ty = Math.cos(t / 3400) * 0.25 }
+        if (coarse && tilt) { d.tx = tilt.x; d.ty = tilt.y }
+        d.x += (d.tx - d.x) * 0.08
+        d.y += (d.ty - d.y) * 0.08
+        d.el.style.setProperty('--px', d.x.toFixed(3))
+        d.el.style.setProperty('--py', d.y.toFixed(3))
+        if (coarse || Math.abs(d.tx - d.x) + Math.abs(d.ty - d.y) > 0.002) moving = true
+      })
+      if (moving && !reduce && !document.hidden) draf = requestAnimationFrame(dstep)
+    }
+    const dkick = () => { if (!draf && !reduce) draf = requestAnimationFrame(dstep) }
+    depthScenes.forEach((d) => seen(d.el, (v) => {
+      d.on = v
+      if (!v || reduce) { d.tx = 0; d.ty = 0 }
+      dkick()
+    }, { threshold: 0.05 }))
+    if (!coarse) {
+      window.addEventListener('pointermove', (e) => {
+        if (reduce) return
+        depthScenes.forEach((d) => {
+          if (!d.on) return
+          const r = d.el.getBoundingClientRect()
+          d.tx = clamp((e.clientX - (r.left + r.width / 2)) / (r.width / 2), -1, 1)
+          d.ty = clamp((e.clientY - (r.top + r.height / 2)) / Math.max(300, r.height / 2), -1, 1)
+        })
+        dkick()
+      }, { passive: true })
+    } else if (window.DeviceOrientationEvent && typeof window.DeviceOrientationEvent.requestPermission !== 'function') {
+      let beta0 = null
+      window.addEventListener('deviceorientation', (e) => {
+        if (reduce || e.gamma === null || e.beta === null) return
+        if (beta0 === null) beta0 = e.beta
+        tilt = { x: clamp(e.gamma / 30, -1, 1) * 0.6, y: clamp((e.beta - beta0) / 30, -1, 1) * 0.5 }
+        dkick()
+      }, { passive: true })
+    }
+    document.addEventListener('visibilitychange', dkick)
+  }
+
   /* ───────────────────────── Level: Adult phone screenshots ── */
+  // Dots pick a screen; a tap on the phone goes to the next one; a swipe goes either way.
   const shots = $$('.shot')
-  const tabs = $$('.shot-tab')
+  const dots = $$('.shot-dot')
   const cap = $('.shot-caption')
-  const phoneWrap = $('.la-phone')
-  if (shots.length && tabs.length === shots.length && phoneWrap) {
+  const stage = $('.la-stage')
+  const tap = $('.phone-tap')
+  if (shots.length && dots.length === shots.length && stage) {
     let si = 0
-    let phoneOn = false
+    let stageOn = false
     let hold = false
     let userT = 0
     const show = (i) => {
+      i = (i + shots.length) % shots.length
       if (i === si) return
       const prev = shots[si]
       prev.classList.remove('is-on')
@@ -509,55 +562,34 @@
       si = i
       shots[si].classList.remove('was-on')
       shots[si].classList.add('is-on')
-      tabs.forEach((t, j) => t.setAttribute('aria-pressed', String(j === si)))
-      if (cap) cap.textContent = tabs[si].dataset.cap || ''
+      dots.forEach((d, k) => d.setAttribute('aria-pressed', String(k === si)))
+      if (cap) cap.textContent = dots[si].dataset.cap || ''
     }
-    tabs.forEach((t, j) => t.addEventListener('click', () => { userT = now(); show(j) }))
-    phoneWrap.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hold = true })
-    phoneWrap.addEventListener('pointerleave', () => { hold = false })
-    phoneWrap.addEventListener('focusin', () => { hold = true })
-    phoneWrap.addEventListener('focusout', () => { hold = false })
-    seen(phoneWrap, (v) => { phoneOn = v }, { threshold: 0.3 })
-    setInterval(() => {
-      if (!reduce && phoneOn && !hold && !document.hidden && now() - userT > 9000) show((si + 1) % shots.length)
-    }, 3600)
-  }
-
-  /* ───────────────────────── Professors strip ── */
-  const strip = $('.prof-strip')
-  if (strip) {
-    const cards = $$('.prof-card', strip)
-    let lastUser = 0
-    let talking = null
-    let talkT = 0
-    let stripOn = false
-    const talk = (card, ms) => {
-      if (talking && talking !== card) talking.classList.remove('talk')
-      talking = card
-      card.classList.add('talk')
-      clearTimeout(talkT)
-      talkT = setTimeout(() => { card.classList.remove('talk'); if (talking === card) talking = null }, ms)
-    }
-    cards.forEach((c) => c.addEventListener('click', () => {
-      lastUser = now()
-      if (c.classList.contains('talk')) { c.classList.remove('talk'); talking = null } else { talk(c, 4400); play('blip') }
-    }))
-    $$('.strip-btn').forEach((b) => b.addEventListener('click', () => {
-      lastUser = now()
-      const w = cards[0].getBoundingClientRect().width + 14
-      const per = Math.max(1, Math.floor(strip.clientWidth / w) - 1)
-      strip.scrollBy({ left: w * per * Number(b.dataset.dir), behavior: reduce ? 'auto' : 'smooth' })
-    }))
-    seen(strip, (v) => { stripOn = v }, { threshold: 0.4 })
-    setInterval(() => {
-      if (reduce || !stripOn || document.hidden || now() - lastUser < 7000 || strip.matches(':hover')) return
-      const sr = strip.getBoundingClientRect()
-      const inView = cards.filter((c) => {
-        const r = c.getBoundingClientRect()
-        return r.left >= sr.left + 6 && r.right <= sr.right - 6
+    dots.forEach((d, k) => d.addEventListener('click', () => { userT = now(); show(k) }))
+    if (tap) {
+      let x0 = null
+      let swiped = false
+      tap.addEventListener('pointerdown', (e) => { x0 = e.clientX; swiped = false })
+      tap.addEventListener('pointerup', (e) => {
+        if (x0 === null) return
+        const dx = e.clientX - x0
+        x0 = null
+        if (Math.abs(dx) > 34) { swiped = true; userT = now(); show(si + (dx < 0 ? 1 : -1)) }
       })
-      if (inView.length) talk(pick(inView), 2700)
-    }, 3400)
+      tap.addEventListener('click', () => {
+        if (swiped) { swiped = false; return }
+        userT = now()
+        show(si + 1)
+      })
+    }
+    stage.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hold = true })
+    stage.addEventListener('pointerleave', () => { hold = false })
+    stage.addEventListener('focusin', () => { hold = true })
+    stage.addEventListener('focusout', () => { hold = false })
+    seen(stage, (v) => { stageOn = v }, { threshold: 0.3 })
+    setInterval(() => {
+      if (!reduce && stageOn && !hold && !document.hidden && now() - userT > 9000) show(si + 1)
+    }, 3600)
   }
 
   /* ───────────────────────── Level: Historian time machine ── */
@@ -636,7 +668,8 @@
 
   /* ───────────────────────── Copy email buttons ── */
   $$('[data-copy]').forEach((b) => {
-    const label = b.textContent
+    const tip = $('.copy-tip', b)
+    const label = b.getAttribute('aria-label') || ''
     b.addEventListener('click', async () => {
       const text = b.dataset.copy
       let ok = false
@@ -654,14 +687,15 @@
         try { ok = document.execCommand('copy') } catch (err) { ok = false }
         ta.remove()
       }
-      b.textContent = ok ? 'Copied!' : 'Select it'
+      if (tip) tip.textContent = ok ? 'Copied!' : 'Select it'
       b.classList.toggle('done', ok)
       if (ok) {
+        b.setAttribute('aria-label', 'Copied ' + text)
         play('blip')
         const r = b.getBoundingClientRect()
         confetti({ x: r.left + r.width / 2, y: r.top, count: 36 })
       }
-      setTimeout(() => { b.textContent = label; b.classList.remove('done') }, 1900)
+      setTimeout(() => { if (tip) tip.textContent = 'Copy'; b.classList.remove('done'); b.setAttribute('aria-label', label) }, 1900)
     })
   })
 
