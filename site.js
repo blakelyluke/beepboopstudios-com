@@ -220,7 +220,7 @@
     const eyes = $('.bot-eyes', svg)
     const head = $('.bot-head', svg)
     const squash = $('.bot-squash', svg)
-    const handR = $('.bot-hand-r .hand-in', svg)
+    const armR = $('.arm-r', svg)
     const heroBot = $('.hero-bot')
     const bubble = $('.bubble')
     const bubbleText = $('.bubble-text')
@@ -266,7 +266,7 @@
     const apply = () => {
       face.setAttribute('transform', 'translate(' + (cur.x * 13).toFixed(2) + ' ' + (cur.y * 10).toFixed(2) + ')')
       eyes.setAttribute('transform', 'translate(' + (cur.x * 5).toFixed(2) + ' ' + (cur.y * 4).toFixed(2) + ')')
-      head.setAttribute('transform', 'rotate(' + (cur.x * 6).toFixed(2) + ' 128 140)')
+      head.setAttribute('transform', 'rotate(' + (cur.x * 5).toFixed(2) + ' 128 246)') // tilts on the neck
     }
     const step = () => {
       raf = 0
@@ -284,7 +284,7 @@
       if (reduce || !heroOn) return
       const r = svg.getBoundingClientRect()
       const cx = r.left + r.width * 0.5
-      const cy = r.top + r.height * 0.42
+      const cy = r.top + r.height * 0.4
       lookAt((e.clientX - cx) / Math.max(240, window.innerWidth * 0.45), (e.clientY - cy) / Math.max(240, window.innerHeight * 0.5))
       lastPtr = now()
     }
@@ -327,15 +327,15 @@
     }
     setTimeout(chatter, 5600)
 
-    // Waves hello on arrival.
-    const wave = (hand) => {
-      if (reduce || !hand) return
-      hand.classList.remove('wave')
-      reflow(hand)
-      hand.classList.add('wave')
+    // Waves hello on arrival: the whole arm swings from the shoulder.
+    const wave = () => {
+      if (reduce || !armR) return
+      armR.classList.remove('wave')
+      reflow(armR)
+      armR.classList.add('wave')
     }
-    if (handR) handR.addEventListener('animationend', () => handR.classList.remove('wave'))
-    setTimeout(() => wave(handR), 900)
+    if (armR) armR.addEventListener('animationend', (e) => { if (e.animationName === 'armwave') armR.classList.remove('wave') })
+    setTimeout(wave, 900)
 
     // Hover makes it blush.
     bot.addEventListener('pointerenter', (e) => {
@@ -366,8 +366,8 @@
       if (reduce || !heroBot) return
       const r = svg.getBoundingClientRect()
       const hr = heroBot.getBoundingClientRect()
-      const ax = r.left - hr.left + ((128 + 60) / 376) * r.width
-      const ay = r.top - hr.top + ((10 + 50) / 372) * r.height
+      const ax = r.left - hr.left + ((128 + 70) / 400) * r.width
+      const ay = r.top - hr.top + ((10 + 50) / 480) * r.height
       for (let i = 0; i < n; i++) {
         const s = document.createElement('span')
         s.className = 'spark'
