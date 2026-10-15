@@ -176,14 +176,21 @@
   /* ───────────────────────── Top bar ── */
   .topbar {
     position: sticky; top: 0; z-index: 50;
-    transition: background-color .3s, box-shadow .3s, backdrop-filter .3s;
   }
-  .topbar.scrolled {
-    background: rgba(7, 10, 20, 0.78);
+  /* Once you scroll, a frosted band behind the bar that FADES into the page below it: no edge, no
+     1px line (founder 2026-10-15: "that's a harsh line at the top"). It lives on a layer of its own
+     so the fade never touches the links, and it reaches a little below the bar to soften the blur's
+     own edge. */
+  .topbar::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; bottom: -30px; z-index: -1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(7, 10, 20, 0.88) 0%, rgba(7, 10, 20, 0.7) 58%, rgba(7, 10, 20, 0) 100%);
     -webkit-backdrop-filter: saturate(140%) blur(14px);
     backdrop-filter: saturate(140%) blur(14px);
-    box-shadow: 0 1px 0 var(--line);
+    -webkit-mask-image: linear-gradient(180deg, #000 52%, transparent);
+    mask-image: linear-gradient(180deg, #000 52%, transparent);
+    opacity: 0; transition: opacity .35s ease;
   }
+  .topbar.scrolled::before { opacity: 1; }
   .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; }
   .brand {
     display: inline-flex; align-items: center; gap: 11px; min-height: 44px;
