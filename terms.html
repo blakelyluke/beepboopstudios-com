@@ -2,101 +2,227 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080b12">
-<title>Terms of Service — BeepBoop Studios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070a14">
+<meta name="color-scheme" content="dark">
+<title>Terms of Service · BeepBoop Studios</title>
 <meta name="description" content="Terms of Service for BeepBoop Studios products including Level: Adult.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
-  :root {
-    --bg: #080b12;
-    --text: #eef0f8;
-    --text-dim: #8892a4;
-    --text-faint: #4a5468;
-    --accent: #a78bfa;
+  @font-face {
+    font-family: "Bricolage Grotesque";
+    src: url(fonts/bricolage-grotesque-latin.woff2) format("woff2");
+    font-weight: 200 800; font-stretch: 75% 100%; font-display: swap;
   }
-  * { box-sizing: border-box; }
+  @font-face {
+    font-family: "Silkscreen";
+    src: url(fonts/silkscreen-latin.woff2) format("woff2");
+    font-weight: 400; font-display: swap;
+  }
+  :root {
+    --bg: #070a14;
+    --text: #f2f4fb;
+    --text-dim: #c3cad9;
+    --text-faint: #8590ab;
+    --accent: #7dd3fc;
+    --line: rgba(255,255,255,0.08);
+    --grad: linear-gradient(135deg, #a78bfa 0%, #3b82f6 50%, #2dd4bf 100%);
+    --display: "Bricolage Grotesque", ui-rounded, "Segoe UI", system-ui, sans-serif;
+    --pixel: "Silkscreen", ui-monospace, monospace;
+    --spring: cubic-bezier(.3, 1.8, .5, 1);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter",
-                 system-ui, sans-serif;
-    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, system-ui, sans-serif;
+    background:
+      radial-gradient(900px 520px at 12% -10%, rgba(167,139,250,0.20), transparent 70%),
+      radial-gradient(800px 520px at 100% 10%, rgba(45,212,191,0.12), transparent 70%),
+      var(--bg);
+    background-repeat: no-repeat;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
-  a { color: var(--accent); }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: #bae6fd; }
+  :focus-visible { outline: 3px solid #5eead4; outline-offset: 3px; border-radius: 8px; }
+  .wrap { width: min(860px, calc(100% - 32px)); margin-inline: auto; }
+  .skip {
+    position: fixed; left: 16px; top: -80px; z-index: 200;
+    background: #fff; color: #0b1020; font-weight: 800; padding: 12px 18px; border-radius: 12px;
+    text-decoration: none; transition: top .2s;
+  }
+  .skip:focus { top: 16px; }
 
-  nav { padding: 28px 0 0; }
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(7,10,20,0.78);
+    -webkit-backdrop-filter: saturate(140%) blur(14px); backdrop-filter: saturate(140%) blur(14px);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 70px; }
   .brand {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-weight: 800; letter-spacing: -0.3px; font-size: 18px;
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px; white-space: nowrap;
+    font-family: var(--display); font-weight: 800; font-size: 18px; letter-spacing: -0.02em;
     color: var(--text); text-decoration: none;
   }
-  .brand-mark {
-    width: 32px; height: 32px;
-    display: block;
-    filter: drop-shadow(0 4px 14px rgba(91,62,245,0.45));
+  .brand-mark { width: 32px; height: 32px; display: block; filter: drop-shadow(0 4px 14px rgba(91,62,245,0.5)); transition: transform .4s var(--spring); }
+  .brand:hover { color: var(--text); }
+  .brand:hover .brand-mark { transform: rotate(-10deg) scale(1.08); }
+  .nav-links { display: flex; gap: 2px; }
+  .nav-links a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 12px;
+    color: #aab3c9; text-decoration: none; font-size: 15px; font-weight: 600;
+  }
+  .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+  .nav-links a[aria-current="page"] { color: var(--text); background: rgba(167,139,250,0.16); }
+  @media (max-width: 420px) {
+    .brand { font-size: 16px; }
+    .brand-mark { width: 28px; height: 28px; }
+    .nav-links a { padding: 0 9px; font-size: 14px; }
+    .nav-links .hide-xs { display: none; }
   }
 
-  article { padding: 60px 0 100px; }
+  /* Header strip */
+  .legal-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 44px 0 22px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px; margin: 0;
+    font-family: var(--pixel); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+  }
+  .eyebrow::before { content: ""; width: 18px; height: 3px; border-radius: 3px; background: var(--grad); }
+  .legal-head .note { margin: 10px 0 0; color: var(--text-faint); font-size: 15px; }
+  .reader { width: 84px; height: 84px; flex: none; animation: bob 4.4s ease-in-out infinite; }
+  .reader .eye { transform-box: fill-box; transform-origin: center; animation: blink 4.6s ease-in-out infinite 1s; }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+  @keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+
+  /* The document */
+  article {
+    position: relative;
+    padding: clamp(26px, 5vw, 56px);
+    margin-bottom: 72px;
+    border-radius: 30px;
+    background: linear-gradient(180deg, #11172d, #0c1124);
+    box-shadow: inset 0 0 0 1px rgba(167,139,250,0.22), 0 40px 80px -40px rgba(91,62,245,0.45);
+  }
+  article::before {
+    content: ""; position: absolute; left: clamp(26px, 5vw, 56px); right: clamp(26px, 5vw, 56px); top: 0; height: 4px;
+    border-radius: 0 0 6px 6px; background: var(--grad);
+  }
   h1 {
-    font-size: 36px; font-weight: 900; letter-spacing: -0.6px;
-    margin: 0 0 8px;
+    font-family: var(--display); font-weight: 800; letter-spacing: -0.025em; line-height: 1.02;
+    font-size: clamp(36px, 6vw, 56px);
+    margin: 0 0 14px;
   }
-  .updated { color: var(--text-faint); font-size: 13px; margin: 0 0 36px; }
+  .updated {
+    display: inline-block; margin: 0 0 30px; padding: 6px 12px; border-radius: 999px;
+    font-size: 13px; color: var(--text-faint); background: rgba(255,255,255,0.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  }
   h2 {
-    font-size: 18px; font-weight: 800; letter-spacing: -0.2px;
-    margin: 32px 0 10px; color: var(--text);
+    position: relative;
+    font-family: var(--display); font-weight: 800; letter-spacing: -0.015em; line-height: 1.2;
+    font-size: clamp(20px, 2.6vw, 24px);
+    margin: 40px 0 12px; padding-left: 22px; color: var(--text);
   }
-  p, li { color: var(--text-dim); font-size: 15px; }
-  ul { padding-left: 22px; }
+  h2::before {
+    content: ""; position: absolute; left: 0; top: 0.32em; width: 11px; height: 11px; border-radius: 3px;
+    background: var(--grad); transform: rotate(45deg);
+  }
+  p, li { color: var(--text-dim); font-size: 16px; }
+  p { margin: 0 0 14px; }
+  ul { padding-left: 22px; margin: 0 0 16px; }
+  li { margin: 0 0 10px; padding-left: 4px; }
+  li::marker { color: #5eead4; }
   strong { color: var(--text); }
 
-  footer {
-    padding: 28px 0 36px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    font-size: 12px; color: var(--text-faint);
-    display: flex; flex-wrap: wrap; gap: 12px;
-    justify-content: space-between;
+  /* Footer */
+  footer { border-top: 1px solid var(--line); background: linear-gradient(180deg, #080c18, #05070e); }
+  .foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; padding: 30px 0 38px; font-size: 13px; color: var(--text-faint); }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 2px; }
+  .foot-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #aab3c9; text-decoration: none; font-weight: 600; font-size: 14px; }
+  .foot-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reader, .reader .eye { animation: none; }
+    .brand-mark, .skip { transition: none; }
   }
-  footer a { color: var(--text-dim); text-decoration: none; }
-  footer a:hover { color: var(--text); }
+  @media print {
+    body { background: #fff; color: #000; }
+    .topbar, .legal-head, footer { display: none; }
+    article { box-shadow: none; background: none; padding: 0; }
+    article::before { display: none; }
+    p, li, strong, h1, h2 { color: #000; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<a class="skip" href="#doc">Skip to content</a>
 
-<nav>
-  <a class="brand" href="index.html">
-    <svg class="brand-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="bb-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-          <stop offset="0"   stop-color="#a78bfa"/>
-          <stop offset="0.5" stop-color="#3b82f6"/>
-          <stop offset="1"   stop-color="#2dd4bf"/>
-        </linearGradient>
-        <radialGradient id="bb-eye" cx="0.32" cy="0.28" r="0.85">
-          <stop offset="0"   stop-color="#ffffff"/>
-          <stop offset="0.6" stop-color="#ffffff"/>
-          <stop offset="1"   stop-color="#e5e7ff"/>
-        </radialGradient>
-      </defs>
-      <line x1="32" y1="2" x2="32" y2="9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.92"/>
-      <circle cx="32" cy="2.5" r="2.6" fill="#ffffff"/>
-      <rect x="6" y="10" width="52" height="50" rx="13" fill="url(#bb-bg)"/>
-      <rect x="9" y="13" width="46" height="44" rx="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-      <circle cx="22" cy="32" r="6.5" fill="url(#bb-eye)"/>
-      <circle cx="42" cy="32" r="6.5" fill="url(#bb-eye)"/>
-      <circle cx="20" cy="29.5" r="1.6" fill="#ffffff"/>
-      <circle cx="40" cy="29.5" r="1.6" fill="#ffffff"/>
-      <path d="M 22 47 Q 32 52 42 47" stroke="#ffffff" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.72"/>
-    </svg>
-    BeepBoop Studios
-  </a>
-</nav>
+<header class="topbar">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="bb-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+            <stop offset="0"   stop-color="#a78bfa"/>
+            <stop offset="0.5" stop-color="#3b82f6"/>
+            <stop offset="1"   stop-color="#2dd4bf"/>
+          </linearGradient>
+          <radialGradient id="bb-eye" cx="0.32" cy="0.28" r="0.85">
+            <stop offset="0"   stop-color="#ffffff"/>
+            <stop offset="0.6" stop-color="#ffffff"/>
+            <stop offset="1"   stop-color="#e5e7ff"/>
+          </radialGradient>
+        </defs>
+        <line x1="32" y1="2" x2="32" y2="9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.92"/>
+        <circle cx="32" cy="2.5" r="2.6" fill="#ffffff"/>
+        <rect x="6" y="10" width="52" height="50" rx="13" fill="url(#bb-bg)"/>
+        <rect x="9" y="13" width="46" height="44" rx="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+        <circle cx="22" cy="32" r="6.5" fill="url(#bb-eye)"/>
+        <circle cx="42" cy="32" r="6.5" fill="url(#bb-eye)"/>
+        <circle cx="20" cy="29.5" r="1.6" fill="#ffffff"/>
+        <circle cx="40" cy="29.5" r="1.6" fill="#ffffff"/>
+        <path d="M 22 47 Q 32 52 42 47" stroke="#ffffff" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.72"/>
+      </svg>
+      BeepBoop Studios
+    </a>
+    <div class="nav-links">
+      <a class="hide-xs" href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html" aria-current="page">Terms</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap" id="doc">
+<div class="legal-head">
+  <div>
+    <p class="eyebrow">The fine print</p>
+    <p class="note">The rules of the game for using our apps.</p>
+  </div>
+  <svg class="reader" viewBox="-4 -4 72 72" aria-hidden="true">
+    <defs>
+      <linearGradient id="rd-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#a78bfa"/><stop offset="0.5" stop-color="#3b82f6"/><stop offset="1" stop-color="#2dd4bf"/>
+      </linearGradient>
+    </defs>
+    <line x1="32" y1="2" x2="32" y2="9" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.92"/>
+    <circle cx="32" cy="2.5" r="2.6" fill="#ffffff"/>
+    <rect x="6" y="10" width="52" height="50" rx="13" fill="url(#rd-bg)"/>
+    <rect x="9" y="13" width="46" height="44" rx="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+    <g class="eye"><circle cx="22" cy="32" r="5.4" fill="#ffffff"/></g>
+    <g class="eye"><circle cx="42" cy="32" r="5.4" fill="#ffffff"/></g>
+    <g fill="none" stroke="#0b1020" stroke-width="2.2"><circle cx="22" cy="32" r="8.6"/><circle cx="42" cy="32" r="8.6"/><path d="M30.6 31.4h2.8M13.4 31l-6-2M50.6 31l6-2"/></g>
+    <path d="M 24 47 Q 32 50 40 47" stroke="#ffffff" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.72"/>
+  </svg>
+</div>
 
 <article>
 <h1>Terms of Service</h1>
@@ -222,14 +348,16 @@ App support: <a href="mailto:support@leveladult.com">support@leveladult.com</a><
 BeepBoop Studios LLC · 742 Graham St #321 · Tuscola, TX 79562 · USA
 </p>
 </article>
+</main>
 
 <footer>
-  <div>© 2026 BeepBoop Studios LLC · Texas, USA</div>
-  <div>
-    <a href="index.html">Home</a> · <a href="privacy.html">Privacy</a>
+  <div class="wrap foot">
+    <div>© 2026 BeepBoop Studios LLC · Texas, USA</div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
   </div>
 </footer>
-
-</div>
 </body>
 </html>
