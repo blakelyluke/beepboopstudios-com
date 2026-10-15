@@ -433,26 +433,6 @@
     .bot-hint { right: 16%; bottom: 26%; }
   }
 
-  /* ───────────────────────── Tapes ── */
-  .tapes { position: relative; height: 150px; overflow: clip; margin: 0 0 10px; }
-  .tape {
-    position: absolute; left: -6%; width: 112%; top: 44px;
-    padding: 14px 0; overflow: hidden; white-space: nowrap;
-    font-family: var(--pixel); font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase;
-  }
-  .tape-1 { transform: rotate(-2.6deg); background: var(--grad); color: #0a0d1a; z-index: 2; box-shadow: 0 16px 40px -14px rgba(59,130,246,0.6); }
-  .tape-2 { transform: rotate(2.2deg); background: #121a33; color: #c9d1ec; top: 50px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
-  .track { display: inline-flex; gap: 26px; padding-right: 26px; animation: marquee 38s linear infinite; }
-  .tape-2 .track { animation-direction: reverse; animation-duration: 46s; }
-  .track span { display: inline-flex; gap: 26px; }
-  .track i { font-style: normal; opacity: 0.6; }
-  @keyframes marquee { to { transform: translateX(-50%); } }
-  @media (max-width: 720px) {
-    .tapes { height: 136px; }
-    .tape { font-size: 15px; padding: 11px 0; }
-    .tape-1 { top: 66px; transform: rotate(-4deg); }
-    .tape-2 { top: 26px; transform: rotate(3.4deg); }
-  }
 
   /* ───────────────────────── Apps ── */
   .apps { padding: 40px 0 40px; }
@@ -952,7 +932,7 @@
   @media print {
     [data-reveal] { opacity: 1 !important; transform: none !important; }
     .stamp { opacity: 1 !important; }
-    .hero-bg, .tapes, .bubble, .sound-toggle, .bot-hint, .toast, .peeker, .peek-hi { display: none !important; }
+    .hero-bg, .bubble, .sound-toggle, .bot-hint, .toast, .peeker, .peek-hi { display: none !important; }
   }
 
   /* ───────────────────────── Reduced motion: calm, still, still lovely ── */
@@ -1168,12 +1148,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ═════════════════════════ TAPES ═════════════════════════ -->
-  <div class="tapes" aria-hidden="true">
-    <div class="tape tape-2"><div class="track"><span>Beep boop <i>✦</i> Press start <i>✦</i> Level up <i>✦</i> History you can play <i>✦</i> Small studio, big heart <i>✦</i> Made in Texas <i>✦</i></span><span>Beep boop <i>✦</i> Press start <i>✦</i> Level up <i>✦</i> History you can play <i>✦</i> Small studio, big heart <i>✦</i> Made in Texas <i>✦</i></span></div></div>
-    <div class="tape tape-1"><div class="track"><span>Quests <i>✦</i> Courses <i>✦</i> Professors <i>✦</i> Functional U <i>✦</i> Time machines <i>✦</i> Playful software <i>✦</i> Quietly useful <i>✦</i></span><span>Quests <i>✦</i> Courses <i>✦</i> Professors <i>✦</i> Functional U <i>✦</i> Time machines <i>✦</i> Playful software <i>✦</i> Quietly useful <i>✦</i></span></div></div>
-  </div>
 
   <!-- ═════════════════════════ APPS ═════════════════════════ -->
   <section class="apps" id="apps" aria-labelledby="apps-title">
