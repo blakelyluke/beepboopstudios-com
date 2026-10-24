@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070a14">
 <meta name="color-scheme" content="dark">
 <title>BeepBoop Studios · Playful software, quietly useful</title>
-<meta name="description" content="BeepBoop Studios is an indie studio in Texas making playful, useful apps. Maker of Level: Adult, the life skills game. Level: Historian is coming soon.">
+<meta name="description" content="BeepBoop Studios is an indie studio in Texas making playful, useful apps. Maker of Level: Adult, the life skills game. Level: Historian and On The Table, VR table tennis for Meta Quest, are coming soon.">
 <link rel="canonical" href="https://beepboopstudios.com/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -62,6 +62,12 @@
     font-family: "Cinzel";
     src: url(fonts/cinzel-latin.woff2) format("woff2");
     font-weight: 400 900; font-display: swap;
+  }
+  /* On The Table's own display face, for its card only */
+  @font-face {
+    font-family: "Sora";
+    src: url(fonts/sora-latin.woff2) format("woff2");
+    font-weight: 400 800; font-display: swap;
   }
 
   /* ───────────────────────── Tokens ── */
@@ -719,6 +725,57 @@
   .machine-caption { margin-top: 14px; min-height: 3em; text-align: center; font-size: 15px; color: #c6d3cf; max-width: 300px; }
   .machine-caption strong { color: var(--brass-hi); }
 
+  /* On The Table. Its own arena flavour: night-blue court, cyan neon rim, an LED board tab,
+     and a real in-engine render that tilts toward the pointer. */
+  .cart-ott {
+    margin-top: 96px; --px: 0; --py: 0;
+    --cart-border: linear-gradient(135deg, #9ff3ff, #3fe0ff 22%, #1d3f9a 50%, #3b6dff 72%, #9ff3ff);
+    background:
+      radial-gradient(80% 70% at 100% 0%, rgba(63,224,255,0.16), transparent 60%),
+      radial-gradient(80% 70% at 0% 100%, rgba(59,109,255,0.22), transparent 60%),
+      linear-gradient(160deg, #0b1636, #070d22 60%, #05070f);
+    box-shadow: 0 0 40px -12px rgba(63,224,255,0.35), 0 26px 34px -26px rgba(0,0,0,0.95);
+  }
+  .cart-ott::before { padding: 2px; }
+  .cart-ott .cart-tab {
+    color: #9ff3ff; background: #050a18;
+    text-shadow: 0 0 8px rgba(63,224,255,0.8);
+    box-shadow: 0 0 0 1.5px rgba(63,224,255,0.55), 0 0 22px -4px rgba(63,224,255,0.6), 0 10px 20px -8px rgba(0,0,0,0.7);
+  }
+  .ott-grid { display: grid; gap: 36px; align-items: center; }
+  @media (min-width: 900px) { .ott-grid { grid-template-columns: 1.1fr 0.9fr; gap: 56px; } }
+  .app-icon.neon { box-shadow: 0 0 0 2px rgba(63,224,255,0.7), 0 0 26px -2px rgba(63,224,255,0.55), 0 16px 34px -10px rgba(59,109,255,0.7); }
+  .ott-title { display: grid; font-family: "Sora", var(--display); text-transform: uppercase; line-height: 0.92; letter-spacing: -0.01em; }
+  .ott-title .w1 { font-size: clamp(12px, 1.2vw, 15px); font-weight: 600; letter-spacing: 0.42em; color: #3fe0ff; margin-bottom: 6px; }
+  .ott-title .w2 { font-size: clamp(40px, 5vw, 62px); font-weight: 800; color: #f3f6ff; }
+  .ott-kicker { margin-top: 10px; font-family: "Sora", var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #3fe0ff; }
+  .ott-desc { font-size: 17px; color: #c3cde6; max-width: 560px; }
+  .ott-chips { display: flex; flex-wrap: wrap; gap: 10px 12px; margin: 24px 0 4px; padding: 0; list-style: none; }
+  .ott-chips li {
+    display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px;
+    font-family: var(--pixel); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #d9f8ff;
+    background: rgba(63,224,255,0.08); box-shadow: inset 0 0 0 1px rgba(63,224,255,0.35);
+  }
+  .ott-chips li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c, #3fe0ff); box-shadow: 0 0 8px var(--c, #3fe0ff); }
+  .btn-ott { margin-top: 28px; box-shadow: inset 0 0 0 1.5px rgba(63,224,255,0.6), 0 6px 0 rgba(63,224,255,0.14); }
+  .btn-ott:hover { background: rgba(63,224,255,0.12); }
+  .ott-stage { position: relative; display: grid; justify-items: center; }
+  .ott-frame {
+    position: relative; width: min(100%, 420px); border-radius: 24px; overflow: hidden;
+    transform: perspective(900px) rotateY(calc(var(--px) * 10deg)) rotateX(calc(var(--py) * -7deg));
+    box-shadow: 0 0 0 1.5px rgba(159,243,255,0.55), 0 30px 60px -20px rgba(0,0,0,0.9), 0 0 60px -10px rgba(59,109,255,0.6);
+  }
+  .ott-frame img { width: 100%; height: auto; }
+  /* The logo's orange ball, hovering off the frame's corner */
+  .ott-ball {
+    position: absolute; right: max(0px, calc(50% - 236px)); top: -16px; width: 34px; height: 34px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff 0, #ffc79a 22%, #ff7a1a 62%, #d34c00 100%);
+    box-shadow: 0 0 24px rgba(255,122,26,0.55);
+    translate: calc(var(--px) * 14px) calc(var(--py) * 10px);
+    animation: float 4.5s ease-in-out infinite; --rot: 0deg;
+  }
+  .ott-caption { margin-top: 14px; text-align: center; font-size: 14px; color: #a9b6d6; }
+
   /* ───────────────────────── How we build: open columns, no cards ── */
   .how { padding: 110px 0 40px; }
   .how-grid { list-style: none; padding: 0; margin: 48px 0 0; display: grid; gap: 40px 36px; }
@@ -917,7 +974,7 @@
       animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important;
       transition-duration: 0.001ms !important; transition-delay: 0s !important;
     }
-    .glow, .shape > i, .track, .bot-float, .bot-shadow, .ant-ring, .cast, .la-features span, .gear, .chip-dot, .led, .app-icon::after, .lh-title, .bot-hint.show, .peeker .bm-eye, .a-blink, .a-pulse { animation: none !important; }
+    .glow, .shape > i, .track, .bot-float, .bot-shadow, .ant-ring, .cast, .la-features span, .gear, .chip-dot, .led, .app-icon::after, .lh-title, .bot-hint.show, .peeker .bm-eye, .a-blink, .a-pulse, .ott-ball { animation: none !important; }
     .ant-glow { animation: none !important; opacity: 0.8; }
     .ant-ring { opacity: 0; }
     .track { transform: none; }
@@ -1030,6 +1087,7 @@
         <div class="hero-apps">
           <a class="mini-app" href="#level-adult"><img src="assets/leveladult-icon.webp" alt="" width="34" height="34"><span><strong>Level: Adult</strong> · Now playing</span></a>
           <a class="mini-app" href="#level-historian"><img src="assets/levelhistorian-icon.webp" alt="" width="34" height="34"><span><strong>Level: Historian</strong> · Coming soon</span></a>
+          <a class="mini-app" href="#on-the-table"><img src="assets/onthetable-icon.webp" alt="" width="34" height="34"><span><strong>On The Table</strong> · Coming soon</span></a>
         </div>
       </div>
 
@@ -1115,7 +1173,7 @@
       <div class="section-head" data-reveal>
         <p class="eyebrow">The lineup</p>
         <h2 id="apps-title">Learning that plays like a game.</h2>
-        <p class="section-sub">Two apps from one tiny studio. One is in your app store today. The other is warming up a time machine.</p>
+        <p class="section-sub">Two learning apps and a VR game from one tiny studio. One is in your app store today, one is warming up a time machine, and one is warming up at the table.</p>
       </div>
 
     </div>
@@ -1291,6 +1349,43 @@
           </div>
         </div>
       </article>
+
+      <!-- On The Table: VR table tennis for Meta Quest (onthetablevr.com). Its art stays out of the hero
+           until it's out, like Level: Historian's. -->
+      <article class="cart cart-ott" id="on-the-table" aria-labelledby="ott-title" data-reveal>
+        <p class="cart-tab"><span class="led" style="--c:#3fe0ff" aria-hidden="true"></span>Coming soon</p>
+        <div class="ott-grid">
+          <div class="ott-info">
+            <div class="app-head">
+              <div class="app-icon neon"><img src="assets/onthetable-icon.webp" alt="On The Table app icon" width="108" height="108" loading="lazy" decoding="async"></div>
+              <div>
+                <h3 class="ott-title" id="ott-title"><span class="w1">On the</span><span class="w2">Table</span></h3>
+                <p class="ott-kicker">VR table tennis for Meta Quest</p>
+              </div>
+            </div>
+            <p class="ott-desc">
+              Table tennis in VR, built on real ball physics. Groove your strokes against
+              the ball machine, tune your paddle, then take on your friends online.
+              Coming soon to Meta Quest 3 and 3S.
+            </p>
+            <ul class="ott-chips" aria-label="Highlights">
+              <li>Real spin</li>
+              <li style="--c:#ff7a1a">Ball machine</li>
+              <li style="--c:#4ade80">Online 1v1</li>
+            </ul>
+            <a class="btn btn-ghost btn-ott" href="https://onthetablevr.com" target="_blank" rel="noopener">Visit onthetablevr.com <span aria-hidden="true">↗</span></a>
+            <p class="soon-note">Not in the Meta Quest store just yet. A closed alpha comes first.</p>
+          </div>
+
+          <div class="ott-stage">
+            <div class="ott-frame">
+              <img src="assets/screens/onthetable-serve.webp" alt="On The Table: a player about to serve, facing an opponent across the table in a lit arena." width="840" height="840" loading="lazy" decoding="async">
+            </div>
+            <span class="ott-ball" aria-hidden="true"></span>
+            <p class="ott-caption">In-engine render with real Meta avatars.</p>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -1363,8 +1458,9 @@
         </p>
         <p>
           Founded in 2026 in Texas. <strong>Level: Adult</strong> is what we're
-          shipping right now. <strong>Level: Historian</strong> is up next, with
-          more in the workshop.
+          shipping right now. <strong>Level: Historian</strong> and
+          <strong>On The Table</strong>, our VR table tennis game, are up next,
+          with more in the workshop.
         </p>
       </div>
       <aside class="idcard" aria-label="Studio ID card">

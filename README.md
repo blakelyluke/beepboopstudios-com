@@ -3,7 +3,7 @@
 Static one-pager for BeepBoop Studios LLC. Plain HTML/CSS, no build step.
 
 ## Files
-- `index.html` — landing (inline CSS; the living robot hero, the Level: Adult scene, the time machine)
+- `index.html` — landing (inline CSS; the living robot hero, the Level: Adult scene, the time machine, the On The Table arena card)
 - `site.js` — the optional fun: robot eyes, blinks, beeps (Web Audio, only after a click),
   screenshot switcher, pointer depth, time machine dial, easter eggs. No libraries, no trackers.
   Everything respects `prefers-reduced-motion`, and the page reads fine without it.
@@ -11,8 +11,8 @@ Static one-pager for BeepBoop Studios LLC. Plain HTML/CSS, no build step.
 - `terms.html` — terms of service (used by app stores; legal text lives inside `<article>`)
 - `favicon.svg` — the robot mark; `apple-touch-icon.png` — 180px home screen icon
 - `og.png` — 1200x630 link preview image
-- `assets/` — optimized WebP art: app icons, Level: Adult screenshots, cutout professors (`cast/`)
-- `fonts/` — self hosted latin subsets of Bricolage Grotesque, Silkscreen and Cinzel (SIL OFL, licenses alongside)
+- `assets/` — optimized WebP art: app icons, Level: Adult screenshots and On The Table's arena render (`screens/`), cutout professors (`cast/`)
+- `fonts/` — self hosted latin subsets of Bricolage Grotesque, Silkscreen, Cinzel and Sora (On The Table's card) (SIL OFL, licenses alongside)
 - `badge-app-store.svg`, `badge-google-play.svg` — Apple's and Google's official badges, unmodified
 - `app-ads.txt`, `google5f78db1f1ce9960f.html` — AdMob and Search Console verification (do not change)
 - `vercel.json` — security headers + clean URLs

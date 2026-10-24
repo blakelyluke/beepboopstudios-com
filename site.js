@@ -488,11 +488,11 @@
     })
   }
 
-  /* ───────────────────────── Pointer depth (Level: Adult scene, Historian dial) ── */
-  // Eases --px / --py (-1..1) on each scene: the phone and dial tilt toward the pointer and the
-  // cutouts and lamps drift at different depths. Phones get a slow idle drift (or device tilt
+  /* ───────────────────────── Pointer depth (Level: Adult scene, Historian dial, On The Table frame) ── */
+  // Eases --px / --py (-1..1) on each scene: the phone, dial and arena shot tilt toward the pointer and
+  // the cutouts, lamps and ball drift at different depths. Phones get a slow idle drift (or device tilt
   // where that needs no permission prompt). Off under reduced motion.
-  const depthScenes = $$('.la-scene, .cart-lh').map((el) => ({ el, on: false, tx: 0, ty: 0, x: 0, y: 0 }))
+  const depthScenes = $$('.la-scene, .cart-lh, .cart-ott').map((el) => ({ el, on: false, tx: 0, ty: 0, x: 0, y: 0 }))
   if (depthScenes.length) {
     let draf = 0
     let tilt = null
