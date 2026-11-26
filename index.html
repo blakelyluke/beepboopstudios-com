@@ -745,8 +745,8 @@
   .ott-grid { display: grid; gap: 36px; align-items: center; }
   @media (min-width: 900px) { .ott-grid { grid-template-columns: 1.1fr 0.9fr; gap: 56px; } }
   .app-icon.neon { box-shadow: 0 0 0 2px rgba(63,224,255,0.7), 0 0 26px -2px rgba(63,224,255,0.55), 0 16px 34px -10px rgba(59,109,255,0.7); }
-  .ott-title { display: grid; font-family: "Sora", var(--display); text-transform: uppercase; line-height: 0.92; letter-spacing: -0.01em; }
-  .ott-title .w1 { font-size: clamp(12px, 1.2vw, 15px); font-weight: 600; letter-spacing: 0.42em; color: #3fe0ff; margin-bottom: 6px; }
+  .ott-title { display: grid; width: max-content; justify-items: center; font-family: "Sora", var(--display); text-transform: uppercase; line-height: 0.92; letter-spacing: -0.01em; }
+  .ott-title .w1 { font-size: clamp(12px, 1.2vw, 15px); font-weight: 600; letter-spacing: 0.42em; margin-right: -0.42em; color: #3fe0ff; margin-bottom: 6px; }
   .ott-title .w2 { font-size: clamp(40px, 5vw, 62px); font-weight: 800; color: #f3f6ff; }
   .ott-kicker { margin-top: 10px; font-family: "Sora", var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #3fe0ff; }
   .ott-desc { font-size: 17px; color: #c3cde6; max-width: 560px; }
@@ -1066,6 +1066,12 @@
       <span class="shape art hide-sm" style="--x:72%;--y:15%;--s:44px;--d:0.6;--t:12s;--dl:-6s;--rot:-9deg"><i><img src="assets/float/how-to-play-chess.webp" alt="" width="184" height="256" decoding="async"></i></span>
       <span class="shape hide-sm" style="--x:56%;--y:78%;--s:82px;--d:0.8;--t:9s;--dl:-5s;--rot:-6deg"><i><span class="xp-pill" style="height:30px">+10 XP</span></i></span>
       <span class="shape art hide-sm" style="--x:53%;--y:41%;--s:38px;--d:0.5;--t:10s;--dl:-7s;--rot:12deg"><i><img src="assets/float/credit-builder.webp" alt="" width="184" height="256" decoding="async"></i></span>
+      <!-- On The Table's own art (the owner, 2026-11-25: "add table tennis balls and paddles"): the game's paddle render and the logo's orange ball -->
+      <span class="shape art hide-sm" style="--x:93%;--y:30%;--s:50px;--d:0.8;--t:10s;--dl:-4s;--rot:24deg"><i><img src="assets/float/ott-paddle.webp" alt="" width="180" height="256" decoding="async"></i></span>
+      <span class="shape art hide-sm" style="--x:33%;--y:86%;--s:46px;--d:1.1;--t:9s;--dl:-2s;--rot:-28deg"><i><img src="assets/float/ott-paddle.webp" alt="" width="180" height="256" decoding="async" style="transform:scaleX(-1)"></i></span>
+      <span class="shape art hide-sm" style="--x:33%;--y:9%;--s:20px;--d:1.4;--t:6s;--dl:-1s"><i><img src="assets/float/ott-ball.webp" alt="" width="128" height="128" decoding="async"></i></span>
+      <span class="shape art hide-sm" style="--x:68%;--y:86%;--s:16px;--d:0.9;--t:7s;--dl:-3s"><i><img src="assets/float/ott-ball.webp" alt="" width="128" height="128" decoding="async"></i></span>
+      <span class="shape art only-sm" style="--x:88%;--y:6%;--s:16px;--d:1;--t:7s;--dl:-2s"><i><img src="assets/float/ott-ball.webp" alt="" width="128" height="128" decoding="async"></i></span>
       <span class="shape art only-sm" style="--x:80%;--y:21%;--s:36px;--d:0.9;--t:9s;--dl:-2s;--rot:-10deg"><i><img src="assets/float/digital-life.webp" alt="" width="184" height="256" decoding="async"></i></span>
       <span class="shape art only-sm" style="--x:3%;--y:13%;--s:18px;--d:1.2;--t:7s;--dl:-1s;--rot:-14deg"><i><img src="assets/float/gold-key.webp" alt="" width="84" height="256" decoding="async"></i></span>
       <span class="shape twinkle" style="--x:62%;--y:24%;--s:16px;--d:0.5;--t:2.6s"><i><svg viewBox="0 0 24 24"><path d="M12 0c1 6 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-6 12-12z" fill="#fff"/></svg></i></span>
@@ -1087,7 +1093,7 @@
         <div class="hero-apps">
           <a class="mini-app" href="#level-adult"><img src="assets/leveladult-icon.webp" alt="" width="34" height="34"><span><strong>Level: Adult</strong> · Now playing</span></a>
           <a class="mini-app" href="#level-historian"><img src="assets/levelhistorian-icon.webp" alt="" width="34" height="34"><span><strong>Level: Historian</strong> · Coming soon</span></a>
-          <a class="mini-app" href="#on-the-table"><img src="assets/onthetable-icon.webp" alt="" width="34" height="34"><span><strong>On The Table</strong> · Coming soon</span></a>
+          <a class="mini-app" href="#on-the-table"><img src="assets/onthetable-icon.webp" alt="" width="34" height="34"><span><strong>On The Table</strong> · December 1</span></a>
         </div>
       </div>
 
@@ -1353,7 +1359,7 @@
       <!-- On The Table: VR table tennis for Meta Quest (onthetablevr.com). Its art stays out of the hero
            until it's out, like Level: Historian's. -->
       <article class="cart cart-ott" id="on-the-table" aria-labelledby="ott-title" data-reveal>
-        <p class="cart-tab"><span class="led" style="--c:#3fe0ff" aria-hidden="true"></span>Coming soon</p>
+        <p class="cart-tab"><span class="led" style="--c:#3fe0ff" aria-hidden="true"></span>December 1</p>
         <div class="ott-grid">
           <div class="ott-info">
             <div class="app-head">
@@ -1364,9 +1370,10 @@
               </div>
             </div>
             <p class="ott-desc">
-              Table tennis in VR, built on real ball physics. Groove your strokes against
-              the ball machine, tune your paddle, then take on your friends online.
-              Coming soon to Meta Quest 3 and 3S.
+              Real physics. Real rivals. Leave It All On The Table. Build your paddle at the
+              workbench, drill with the ball machine, take on a 10-level AI, start a club, climb
+              the ranked ladder and play friends in private rooms with voice chat.
+              Coming December 1 to Meta Quest 3, 3S, 2 and Pro.
             </p>
             <ul class="ott-chips" aria-label="Highlights">
               <li>Real spin</li>
@@ -1374,7 +1381,7 @@
               <li style="--c:#4ade80">Online 1v1</li>
             </ul>
             <a class="btn btn-ghost btn-ott" href="https://onthetablevr.com" target="_blank" rel="noopener">Visit onthetablevr.com <span aria-hidden="true">↗</span></a>
-            <p class="soon-note">Not in the Meta Quest store just yet. A closed alpha comes first.</p>
+            <p class="soon-note">Early Access on the Meta Horizon Store, December 1.</p>
           </div>
 
           <div class="ott-stage">
